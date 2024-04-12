@@ -1,0 +1,532 @@
+{
+	"email": "matt.young@youngdev.net",
+	"name": "Matt Young",
+	"title": "Solution Architect",
+	"subTitle": "US Citizen, Public Trust Clearance",
+	"phoneNumber": "(904) 419-7808",
+	"summary": "I’m an experienced software architect with practical, hands-on expertise in application development as well as software delivery and cloud architecture. I have over 22 years experience in all phases of planning, design, implementation and delivery of a broad range of software solutions/products. I have lead teams and spearheaded all manner of strategic initiatives in enterprises both large and small, spanning many industries including finance, banking, logistics, media and government.",
+	"softwareProjects": [
+		{
+			"name": "USPTO CPC-IP",
+			"description": "A Spring MVC/ReST application for managing patent classification and search for various cooperating governments. It uses SAML Single sign-on, AWS, Oracle, Spring, Alfresco’s Activiti, JPA, Lucene, and XSLT. The application manages multiple complex data transformations throughout the classification modification lifecycle."
+		},
+		{
+			"name": "Wholesale Payroll",
+			"description": "NodeJs and Typescript application using a VueJS front end and Typescript ReST backend. This backend relied on Auth0 identity management and Prisma 2 database layer."
+		},
+		{
+			"name": "MSAPG",
+			"description": "Completely multi-tenant payment gateway with support for extensible processors and transaction billing that is completely decoupled from the payment engine. AMQP/RabbitMQ provides the message queues/exchanges for decoupling event handling from the restful service API."
+		},
+		{
+			"name": "Sanddollar",
+			"description": "A business intelligence software application to facilitate the management of impaired assets. Sanddollar featured a JBoss Drools rules engine, a restful service architecture built on Spring Roo stubs, an integrated job engine based on Quartz and an integrated reporting engine based on Jasper Reports."
+		},
+		{
+			"name": "PSS Ecom",
+			"description": "An E-commerce platform, supporting nearly all of the PSS sales transactions over the web (2 Billion dollars annually). Components include sales quotes supported by multiple pricing engines, an integrated CMS application, shopping cart, catalog and order history tracking."
+		},
+		{
+			"name": "FSP 4",
+			"description": "A Spring MVC application for managing logistic and invoice related information for multiple clients of a small transportation consulting firm. Clients include several Fortune 500 companies. Features include, XML and JSON based restful web services, EDI translator, embedded job engine, Groovy script support and an enterprise embedded reporting engine based on Jasper Reports."
+		},
+		{
+			"name": "Chronos",
+			"description": "A highly scalable enterprise job scheduler, featuring clustered/load-balanced job servers with an Adobe Flex front end. The scheduler component is based on the Quartz API. The ORM was written in Groovy. The service layer is RMI and the encryption (PGP) layer was based on Bouncy Castle's PGP library with support for possibly swapping it or extending it with other encryption libraries."
+		},
+		{
+			"name": "ABBI",
+			"description": "A high volume (36,000 per hour per server) check batching/balancing tool used for collecting paper checks, ICR'ing them and generating ACH transactions all without ever 'depositing' the physical checks at a bank. The web services are implemented as AXIS (SOAP 1.1) web services. The ORM layer was written in Hibernate and the Web layer is Servlets/JSPs. The external ICR engine is exposed via Windows COM objects that my Java application communicates with via the JaCoB library."
+		}
+	],
+	"focusSkills": [
+		{
+			"name": "Software Engineering",
+			"technologies": [
+				"Mobile application development (Android and iOS)",
+				"Java/JEE",
+				"Spring MVC + Spring Security + Spring Data",
+				"Groovy (both with Grails and without)",
+				"Quartz Enterprise Scheduler",
+				"javascript/JQuery/AngularJS/NodeJS/Typescript",
+				"Hibernate/JPA/Spring Data",
+				"Web Services (REST/SOAP/raw text over TCPIP)",
+				"Enterprise build tools (Maven/Gradle/Ant)"
+			]
+		},
+		{
+			"name": "Software Engineering",
+			"technologies": [
+				"Agile Software Development Methodologies (Scrum)",
+				"Business process modeling/orchestration",
+				"Business Intelligence/Analytics/Data Mining",
+				"Service Oriented Architecture",
+				"Cloud architecture design and management",
+				"Database/Data Model design and implementation (both Relational and NoSQL)",
+				"Automation and shell scripting",
+				"Systems design, analysis and performance tuning",
+				"Micro-services"
+			]
+		}
+	],
+	"experience": [
+		{
+			"dates": {
+				"begin": "May 2015",
+				"end": "Current"
+			},
+			"companyName": "United States Patent and Trade Office",
+			"title": "Solution Architect",
+			"description": "Mentored a team of senior Java developers, designed and provided reference implementations for other developers as well as acted as a member of my own team in an agile environment.",
+			"projects": [
+				{
+					"name": "USPTO CPC-IP",
+					"dates": {
+						"begin": "2015",
+						"end": "Current"
+					},
+					"technologies": [
+						"JEE",
+						"AWS",
+						"SAML",
+						"Alfresco Activiti Workflow Engine",
+						"ReST",
+						"JPA",
+						"Lucene",
+						"XML",
+						"JSON transformations"
+					]
+				},
+				{
+					"name": "PStar",
+					"dates": {
+						"begin": "2019",
+						"end": "2020"
+					},
+					"technologies": [
+						"JEE",
+						"Spring Batch",
+						"AWS",
+						"ReST"
+					]
+				}
+			]
+		},
+		{
+			"dates": {
+				"begin": "Oct 2021",
+				"end": "Sept 2022"
+			},
+			"companyName": "Wholesale Payroll",
+			"title": "Services Engineer",
+			"description": "Implemented ReST services including Identity Management integration and database abstraction features.",
+			"projects": [
+				{
+					"name": "Wholesale Payroll",
+					"dates": {
+						"begin": "2021",
+						"end": "2022"
+					},
+					"technologies": [
+						"NodeJS/Typescript",
+						"PrismaDB",
+						"OAuth 2.0",
+						"OpenID Connect",
+						"ReST",
+						"AngularJS"
+					]
+				}
+			]
+		},
+		{
+			"dates": {
+				"begin": "June 2018",
+				"end": "January 2019"
+			},
+			"companyName": "Clearsense",
+			"title": "Application Architect",
+			"description": "Strategic enterprise goals to evaluate and provide reference implementations for new technologies and document how to integrate them into the organization’s existing technologies.",
+			"projects": [
+				{
+					"name": "Gluu IDM Implementation",
+					"dates": {
+						"begin": "2018",
+						"end": "2019"
+					},
+					"technologies": [
+						"Python",
+						"SAMl",
+						"OpenID Connect"
+					]
+				},
+				{
+					"name": "Archive OpenID implementation",
+					"dates": {
+						"begin": "2018",
+						"end": "2019"
+					},
+					"technologies": [
+						"OAuth",
+						"OpenID Connect",
+						"pac4j",
+						"spring security"
+					]
+				}
+			]
+		},
+		{
+			"dates": {
+				"begin": "May 2013",
+				"end": "Nov 2016"
+			},
+			"companyName": "Payspan",
+			"title": "Senior Java Architect",
+			"description": "Worked on modernizing and integrating a newly acquired product with my company's main business channel. Daily duties included reading, writing and implementing specifications. Strict adherence to the Scrum process and ReST application design and implementation.",
+			"projects": [
+				{
+					"name": "MSAPG",
+					"dates": {
+						"begin": "2014",
+						"end": "2016"
+					},
+					"technologies": [
+						"JEE",
+						"Spring MVC",
+						"JPA",
+						"ReST",
+						"AMQP/RabbitMQ"
+					]
+				},
+				{
+					"name": "MPay",
+					"dates": {
+						"begin": "2013",
+						"end": "2016"
+					},
+					"technologies": [
+						"JEE",
+						"Servlets",
+						"Spring",
+						"Hibernate",
+						"JQuery"
+					]
+				}
+			]
+		},
+		{
+			"dates": {
+				"begin": "May 2012",
+				"end": "May 2013"
+			},
+			"companyName": "PSS World Medical",
+			"title": "Web Architecture Consultant",
+			"description": "Designed, prototyped and documented several architectural improvements within the ECOM platform. Also responsible for integrating prototypes into regular application releases.",
+			"projects": [
+				{
+					"name": "ECOM",
+					"dates": {
+						"begin": "2012",
+						"end": "2013"
+					},
+					"technologies": [
+						"Struts",
+						"Proprietary Data Access Layer",
+						"Dieselpoint Search Index",
+						"Spring"
+					]
+				},
+				{
+					"name": "Inboundcal",
+					"dates": {
+						"begin": "2012",
+						"end": "2013"
+					},
+					"technologies": [
+						"Grails",
+						"jQuery",
+						"Full Calendar JS",
+						"GORM"
+					]
+				}
+			]
+		},
+		{
+			"dates": {
+				"begin": "June 2007",
+				"end": "May 2012"
+			},
+			"companyName": "Everbank",
+			"title": "Enterprise Software Engineer",
+			"description": "Lead developer on Lockdesk, Eticket, UFT, Chronos, and FMEL. Responsibilities included gathering specs, prioritizing tasks, organizing releases, designing and implementing solutions and refactoring the legacy application code base.",
+			"projects": [
+				{
+					"name": "Lockdesk",
+					"dates": {
+						"begin": "2008",
+						"end": "2011"
+					},
+					"technologies": [
+						"Struts (later replaced with Spring MVC)",
+						"hibernate",
+						"Axis (SOAP 1.1) web services",
+						"Quartz"
+					]
+				},
+				{
+					"name": "FMEL",
+					"dates": {
+						"begin": "2010",
+						"end": "2012"
+					},
+					"technologies": [
+						"Grails (including GORM and related Grails plugins)"
+					]
+				},
+				{
+					"name": "Chronos",
+					"dates": {
+						"begin": "2011",
+						"end": "2012"
+					},
+					"technologies": [
+						"Flex",
+						"Quartz",
+						"Groovy"
+					]
+				}
+			]
+		},
+		{
+			"dates": {
+				"begin": "May 2007",
+				"end": "present"
+			},
+			"companyName": "ITX Labs",
+			"title": "Enterprise Software Engineer",
+			"description": "Lead developer and architect on ABBI, FSP4, ICRWeb, Edocs, Salefish/Recon and Sanddollar. Responsibilities included gathering specs, prioritizing tasks, planning and organizing releases, managing a small development team, strategic corporate planning, and designing and implementing solutions.",
+			"projects": [
+				{
+					"name": "ABBI",
+					"dates": {
+						"begin": "2007",
+						"end": "present"
+					},
+					"technologies": [
+						"Spring",
+						"JEE servlets",
+						"JSP 2.0",
+						"Hibernate",
+						"Axis (SOAP 1.1) web services",
+						"Quartz"
+					]
+				},
+				{
+					"name": "ICR Web",
+					"dates": {
+						"begin": "2008",
+						"end": "2008"
+					},
+					"technologies": [
+						"JEE",
+						"Hibernate",
+						"Axis (SOAP 1.1) web services",
+						"Java/Com Bridge"
+					]
+				},
+				{
+					"name": "EDocs",
+					"dates": {
+						"begin": "2010",
+						"end": "2010"
+					},
+					"technologies": [
+						"Struts/Spring MVC",
+						"JPA",
+						"Spring Security"
+					]
+				},
+				{
+					"name": "Sanddollar",
+					"dates": {
+						"begin": "2010",
+						"end": "2012"
+					},
+					"technologies": [
+						"Spring MVC",
+						"JPA/Hibernate",
+						"Spring Security",
+						"Jasper Reports"
+					]
+				},
+				{
+					"name": "FSP4",
+					"dates": {
+						"begin": "2011",
+						"end": "present"
+					},
+					"technologies": [
+						"Spring MVC",
+						"JPA/Hibernate",
+						"Spring Security",
+						"Jasper Reports",
+						"Quartz"
+					]
+				}
+			]
+		},
+		{
+			"dates": {
+				"begin": "March 2002",
+				"end": "June 2007"
+			},
+			"companyName": "FDI Technologies/Jax Trans Services",
+			"title": "Enterprise Software Engineer",
+			"description": "Lead developer on FSP3, Com Manager. Responsibilities included prioritizing tasks, planning and designing and implementing solutions. Main technologies included PHP, Theos Multiuser Basic and Java.",
+			"projects": []
+		}
+	],
+	"credentials": [
+		{
+			"description": "AWS Certified Developer (Associate)",
+			"year": "2020"
+		},
+		{
+			"description": "Information Science, Associates of Arts from University of North Florida",
+			"year": "2004"
+		}
+	],
+	"skills": [
+		{
+			"name": "Languages / Formats",
+			"technologies": [
+				"Java 4/5/6/7/8/11/17",
+				"Groovy",
+				"Python \u0026 Jython",
+				"NodeJS/Typescript",
+				"C",
+				"Objective-C",
+				"XHTML/HTML5",
+				"Alfresco Activiti Workflow Engine",
+				"Perl",
+				"PHP",
+				"Shell Scripting",
+				"Adobe Flex",
+				"Theos Multiuser Basic",
+				"CoBOL 74 \u0026 85",
+				"ANSI X12 EDI formats",
+				"JSON",
+				"YAML",
+				"AWS",
+				"Cloudformation",
+				"BPMN 2.0"
+			]
+		},
+		{
+			"name": "Application Frameworks/ Toolkits/ Libraries",
+			"technologies": [
+				"Spring",
+				"Spring MVC",
+				"Spring Security",
+				"Grails",
+				"Jasper Reports/IReport",
+				"Apache Struts",
+				"Apache Tiles (both as a struts plugin and stand alone)",
+				"Apache Maven",
+				"Sitemesh",
+				"Thymeleaf",
+				"Apache Axis",
+				"Apache XML Beans",
+				"jQuery",
+				"Quartz",
+				"Hibernate/Hibernate+Spring",
+				"JPA",
+				"Spring Roo",
+				"Deiselpoint Search Index",
+				"Apache Lucene",
+				"JBoss Drools",
+				"Adobe Flex",
+				"Weceem CMS API",
+				"Sun Metro/JaxWS",
+				"JaxB",
+				"JDOM",
+				"Dom4J and many other XML APIs",
+				"EhCache",
+				"Activiti BPM",
+				"SAML",
+				"OAuth 2.0",
+				"OpenID Connect",
+				"Pac4j",
+				"Flask"
+			]
+		},
+		{
+			"name": "Software",
+			"technologies": [
+				"AWS (CLI and Console)",
+				"AWS CodeDeploy",
+				"AWS CodePipeline",
+				"AWS Lambda",
+				"AWS Quicksight",
+				"Apache Web Server",
+				"Apache Tomcat",
+				"Spring TC Server",
+				"JBoss Application Server/Wildfly",
+				"Jetty",
+				"Caucho Resin",
+				"RabbitMQ",
+				"JBoss ESB",
+				"Talend ETL/BPM/ESB (Open Studio)",
+				"PostgreSQL",
+				"Oracle SQL",
+				"Microsoft SQL Server",
+				"Postfix SMTP Server",
+				"Spamassassin",
+				"Amavisdnew",
+				"Sendmail",
+				"OpenSSL",
+				"OpenSSH",
+				"MongoDB",
+				"Alfresco Activiti Workflow Engine",
+				"Apache Cassandra",
+				"Dropbear SSH",
+				"OpenLDAP",
+				"Eclipse (WTP and PHPDT)",
+				"Spring STS",
+				"Microsoft Visual Studio 2012",
+				"Appcelerator Titanium",
+				"Xamarin Studio",
+				"Monodevelop",
+				"IPTables (Linux firewalls)",
+				"Jenkins CI",
+				"Ludic Charts",
+				"Atlassian Jira/Confluence/Fisheye",
+				"OpenVPN",
+				"OpenSwan",
+				"IPCop",
+				"AppDynamics",
+				"ManageEngine's AppEngine",
+				"New Relic",
+				"Jasper Reports Server",
+				"Gluu IDM",
+				"Okta"
+			]
+		},
+		{
+			"name": "Hardware/ Operating Systems",
+			"technologies": [
+				"Android",
+				"iOS 6",
+				"Linux (Amazon Linux, Red Hat, CentOS, Ubuntu, Debian, Gentoo, OpenWRT, DD-WRT, Suse)",
+				"Mac OSX",
+				"Microsoft Windows 95/98/2000/NT/XP/7/8/10",
+				"Windows Server 2000/2003",
+				"Solaris",
+				"Embedded Systems (PPC, MIPS, ARM)",
+				"Smartphones",
+				"Tablets",
+				"Linux and BSD-based Firewall Appliances",
+				"Theos Corona"
+			]
+		}
+	]
+}
