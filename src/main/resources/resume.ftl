@@ -119,9 +119,12 @@ p.focusSkills table td {
      	border-bottom: 0px;
   }
   table.credentials {
+ 
      width: 100%;
   }
   table.credentials td {
+    margin: 0;
+    padding: 0;
     border: solid 1px #999999;
     
   }
@@ -130,6 +133,17 @@ p.focusSkills table td {
        font-size: 9pt;
    }
   
+  .footer {
+        font-size: 8pt;
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        /*background-color: #333;*/ /* Choose your background color */
+        color: #686868;
+        text-align: center;
+        padding: 10px; /* Add padding for better visibility */
+    }
   </style>
 </head>
 <body>
@@ -203,25 +217,31 @@ p.focusSkills table td {
   	</table>
   	</p>
   
+   	<footer class="footer">
+    	<p>generated using https://github.com/solidatyoungdevdotnet/resume-app on ${.now?string["yyyy-MM-dd HH:mm:ss"]}</p>
+ 	</footer>
 </body>
 </html>
 
 <#macro header>
-<div class="print-header" style="width: 100%;">
+<header class="print-header" style="width: 100%;">
     <table style="width: 100%;">
     <tr>
     	<td class="headerName">${resume.name}</td>
-    	<td class="headerRight headerEmail"><a href="mailto:${resume.email}">${resume.email}</a></td>
-
+    	<td class="headerRight headerEmail"><#if (resume.email)?has_content><a href="mailto:${resume.email}">${resume.email}</a></#if></td>
+<#if (resume.email)?has_content>
+		
       	<td rowspan="2" width="50"><img height="50" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEsAAABLCAYAAAA4TnrqAAABY0lEQVR42u3aQQ7DIAxEUe5/6XSRdRWYsYXBH6mLVmkUXuPUNoyHMT0GBGCBBRZYYIEFAVhggQUWWO8XxpBes+ed/Tz7esDahaUe/++ivyajYrrHg7UL6+s2n30/G27R1wPWLViziGp4gtUVS52Een6wTsVScVfDr3We1QpLLS+y3l9ZG7bCstscJk6rflYrLDX5XG3VrIa1WqCDVQUrKhl1m31q6rHlAQ9WYDPPDUP3R8oIR7B2YKnNPPVB7rZywKqGtXq7r05SxS5ZSIOVWL5kTy4bF6xq/4ZZLZ2oBQ2wqmG5BXVUGZWZIoBVoZ/lpgbRrZuMAhqsE9vKapLrphpgVcPKXgpbLdCjmo5gVcGKCju1bFGbk2CdguVuZota+opMEcA6EStqUTRqkxxYt2C5k4taKgPruXxPqdrMy0QBq2I/K2uLkLsN4OjasAVW5wEWWGCBBRZYDLDAAgsssMBi/ACnZ1edeS78lQAAAABJRU5ErkJggg==" alt="contact ${resume.email}"/></td>
- 
+      	
+ </#if>
     </tr>
     <tr>
-    	<td class="headerTitle">${resume.title}<#if (resume.subTitle??)><br/>${resume.subTitle?html}</#if></td><td class="headerRight">${resume.phoneNumber}</td>
+    	<td class="headerTitle">${resume.title}<#if (resume.subTitle??)><br/>${resume.subTitle?html}</#if></td>
+    	<td class="headerRight">${resume.phoneNumber!""}</td>
     </tr>
     
     </table>
-</div>
+</header>
 </#macro>
 <#macro daterange start end>
 <#if (start = end)>

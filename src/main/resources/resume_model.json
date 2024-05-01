@@ -43,21 +43,22 @@
 		{
 			"name": "Software Engineering",
 			"technologies": [
-				"Mobile application development (Android and iOS)",
 				"Java/JEE",
 				"Spring MVC + Spring Security + Spring Data",
 				"Groovy (both with Grails and without)",
 				"Quartz Enterprise Scheduler",
+				"AWS Lambda",
+				"Python",
 				"javascript/JQuery/AngularJS/NodeJS/Typescript",
 				"Hibernate/JPA/Spring Data",
 				"Web Services (REST/SOAP/raw text over TCPIP)",
-				"Enterprise build tools (Maven/Gradle/Ant)"
+				"Enterprise build tools (Maven/Gradle/Ant)",
+				"Mobile application development (Android and iOS)"
 			]
 		},
 		{
 			"name": "Software Engineering",
 			"technologies": [
-				"Agile Software Development Methodologies (Scrum)",
 				"Business process modeling/orchestration",
 				"Business Intelligence/Analytics/Data Mining",
 				"Service Oriented Architecture",
@@ -65,7 +66,8 @@
 				"Database/Data Model design and implementation (both Relational and NoSQL)",
 				"Automation and shell scripting",
 				"Systems design, analysis and performance tuning",
-				"Micro-services"
+				"Micro-services",
+				"Agile Software Development Methodologies (Scrum)"
 			]
 		}
 	],
@@ -77,7 +79,7 @@
 			},
 			"companyName": "United States Patent and Trade Office",
 			"title": "Solution Architect",
-			"description": "Mentored a team of senior Java developers, designed and provided reference implementations for other developers as well as acted as a member of my own team in an agile environment.",
+			"description": "Mentored a team of senior Java developers, designed and provided reference implementations for other developers and contributed to daily development activities to support the product feature delivery.",
 			"projects": [
 				{
 					"name": "USPTO CPC-IP",
@@ -133,7 +135,7 @@
 						"OAuth 2.0",
 						"OpenID Connect",
 						"ReST",
-						"AngularJS"
+						"AngularJS", "Docker"
 					]
 				}
 			]
@@ -181,7 +183,7 @@
 			},
 			"companyName": "Payspan",
 			"title": "Senior Java Architect",
-			"description": "Worked on modernizing and integrating a newly acquired product with my company's main business channel. Daily duties included reading, writing and implementing specifications. Strict adherence to the Scrum process and ReST application design and implementation.",
+			"description": "Modernizied and integrated a newly acquired product with my company's main business channel. Daily duties included reading, writing and implementing specifications. Strict adherence to the Scrum process and ReST application design and implementation.",
 			"projects": [
 				{
 					"name": "MSAPG",
@@ -392,7 +394,7 @@
 		},
 		{
 			"description": "Information Science, Associates of Arts from University of North Florida",
-			"year": "2004"
+			"year": "2002"
 		}
 	],
 	"skills": [
@@ -472,6 +474,8 @@
 				"Spring TC Server",
 				"JBoss Application Server/Wildfly",
 				"Jetty",
+				"Docker",
+				"Fargate/EKS",
 				"Caucho Resin",
 				"RabbitMQ",
 				"JBoss ESB",
