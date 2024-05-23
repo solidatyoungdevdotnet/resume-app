@@ -116,7 +116,7 @@ public class App {
 			}
 		}
 
-		if (anonymize || StringUtils.isNotEmpty(recipient)) {
+		if (anonymize || StringUtils.isEmpty(recipient)) {
 			try {
 			Path s3NamedStream = new File("/Users/mattyoung/Documents/latest-resume-architect-2024.pdf").toPath();
 			Path mylocalStream = new File("/Users/mattyoung/Documents/mattyoung-architect-resume-2024.pdf").toPath();

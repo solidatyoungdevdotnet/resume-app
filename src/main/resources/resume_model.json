@@ -66,6 +66,7 @@
 				"Database/Data Model design and implementation (both Relational and NoSQL)",
 				"Automation and shell scripting",
 				"Systems design, analysis and performance tuning",
+				"DevOps Pipeline Design",
 				"Micro-services",
 				"Agile Software Development Methodologies (Scrum)"
 			]
@@ -79,7 +80,7 @@
 			},
 			"companyName": "United States Patent and Trade Office",
 			"title": "Solution Architect",
-			"description": "Mentored a team of senior Java developers, designed and provided reference implementations for other developers and contributed to daily development activities to support the product feature delivery.",
+			"description": "Mentored a team of senior Java developers, designed and provided reference implementations for other developers and contributed to daily development activities to support the product feature delivery. Supported DevOps team as needed.",
 			"projects": [
 				{
 					"name": "USPTO CPC-IP",
@@ -96,7 +97,7 @@
 						"JPA",
 						"Lucene",
 						"XML",
-						"JSON transformations"
+						"JSON transformations", "Cloudformation","DevOps Pipelines using Gitlab"
 					]
 				},
 				{
@@ -473,6 +474,7 @@
 				"Apache Tomcat",
 				"Spring TC Server",
 				"JBoss Application Server/Wildfly",
+				"GitLab Pipelines",
 				"Jetty",
 				"Docker",
 				"Fargate/EKS",
