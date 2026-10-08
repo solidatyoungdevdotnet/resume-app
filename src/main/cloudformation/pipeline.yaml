@@ -163,6 +163,14 @@ Resources:
                   - s3:GetObject
                   - s3:PutObject
                 Resource: !Sub arn:aws:s3:::${DeployBucketName}/*
+              - Effect: Allow
+                Action:
+                  - cloudfront:ListDistributions
+                Resource: '*'
+              - Effect: Allow
+                Action:
+                  - cloudfront:CreateInvalidation
+                Resource: !Sub arn:aws:cloudfront::${AWS::AccountId}:distribution/*
 
   DeployCopyProject:
     Type: AWS::CodeBuild::Project
@@ -187,6 +195,15 @@ Resources:
                     aws s3 cp "s3://$DEPLOY_BUCKET/$TARGET_KEY" "s3://$DEPLOY_BUCKET/latest-resume-architect-${TIMESTAMP}.pdf"
                   fi
                 - aws s3 cp resume.pdf "s3://$DEPLOY_BUCKET/$TARGET_KEY"
+                - |
+                  DISTRIBUTION_ID=$(aws cloudfront list-distributions \
+                    --query "DistributionList.Items[?Origins.Items[?contains(DomainName, '${DEPLOY_BUCKET}')]].Id | [0]" \
+                    --output text)
+                  if [ -n "$DISTRIBUTION_ID" ] && [ "$DISTRIBUTION_ID" != "None" ]; then
+                    aws cloudfront create-invalidation --distribution-id "$DISTRIBUTION_ID" --paths "/$TARGET_KEY"
+                  else
+                    echo "No CloudFront distribution found with an origin matching bucket $DEPLOY_BUCKET; skipping invalidation."
+                  fi
       Environment:
         Type: LINUX_CONTAINER
         ComputeType: BUILD_GENERAL1_SMALL
