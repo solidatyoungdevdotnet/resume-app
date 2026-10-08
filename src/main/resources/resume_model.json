@@ -135,7 +135,7 @@
 					"name": "USPTO CPC-IP",
 					"dates": {
 						"begin": "2015",
-						"end": "Current"
+						"end": "2024"
 					},
 					"technologies": [
 						"JEE",
@@ -311,7 +311,7 @@
 		{
 			"dates": {
 				"begin": "May 2007",
-				"end": "present"
+				"end": "Current"
 			},
 			"companyName": "ITX Labs",
 			"title": "Enterprise Software Engineer",
@@ -349,7 +349,7 @@
 					"name": "FSP4",
 					"dates": {
 						"begin": "2011",
-						"end": "present"
+						"end": "Current"
 					},
 					"technologies": [
 						"Spring MVC",
