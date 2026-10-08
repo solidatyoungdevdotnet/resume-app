@@ -217,8 +217,8 @@ p.focusSkills table td {
   	</table>
   	</p>
   
-   	<footer class="footer">
-    	<p>generated using https://github.com/solidatyoungdevdotnet/resume-app on ${.now?string["yyyy-MM-dd HH:mm:ss"]}</p>
+	<footer class="footer">
+    	<p>generated using Yodetech resume-app on ${.now?string["yyyy-MM-dd HH:mm:ss"]}</p>
  	</footer>
 </body>
 </html>
@@ -231,7 +231,7 @@ p.focusSkills table td {
     	<td class="headerRight headerEmail"><#if (resume.email)?has_content><a href="mailto:${resume.email}">${resume.email}</a></#if></td>
 <#if (resume.email)?has_content>
 		
-      	<td rowspan="2" width="50"><img height="50" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEsAAABLCAYAAAA4TnrqAAABY0lEQVR42u3aQQ7DIAxEUe5/6XSRdRWYsYXBH6mLVmkUXuPUNoyHMT0GBGCBBRZYYIEFAVhggQUWWO8XxpBes+ed/Tz7esDahaUe/++ivyajYrrHg7UL6+s2n30/G27R1wPWLViziGp4gtUVS52Een6wTsVScVfDr3We1QpLLS+y3l9ZG7bCstscJk6rflYrLDX5XG3VrIa1WqCDVQUrKhl1m31q6rHlAQ9WYDPPDUP3R8oIR7B2YKnNPPVB7rZywKqGtXq7r05SxS5ZSIOVWL5kTy4bF6xq/4ZZLZ2oBQ2wqmG5BXVUGZWZIoBVoZ/lpgbRrZuMAhqsE9vKapLrphpgVcPKXgpbLdCjmo5gVcGKCju1bFGbk2CdguVuZota+opMEcA6EStqUTRqkxxYt2C5k4taKgPruXxPqdrMy0QBq2I/K2uLkLsN4OjasAVW5wEWWGCBBRZYDLDAAgsssMBi/ACnZ1edeS78lQAAAABJRU5ErkJggg==" alt="contact ${resume.email}"/></td>
+      	<td rowspan="2" width="50"><!--<img height="50" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEsAAABLCAYAAAA4TnrqAAABY0lEQVR42u3aQQ7DIAxEUe5/6XSRdRWYsYXBH6mLVmkUXuPUNoyHMT0GBGCBBRZYYIEFAVhggQUWWO8XxpBes+ed/Tz7esDahaUe/++ivyajYrrHg7UL6+s2n30/G27R1wPWLViziGp4gtUVS52Een6wTsVScVfDr3We1QpLLS+y3l9ZG7bCstscJk6rflYrLDX5XG3VrIa1WqCDVQUrKhl1m31q6rHlAQ9WYDPPDUP3R8oIR7B2YKnNPPVB7rZywKqGtXq7r05SxS5ZSIOVWL5kTy4bF6xq/4ZZLZ2oBQ2wqmG5BXVUGZWZIoBVoZ/lpgbRrZuMAhqsE9vKapLrphpgVcPKXgpbLdCjmo5gVcGKCju1bFGbk2CdguVuZota+opMEcA6EStqUTRqkxxYt2C5k4taKgPruXxPqdrMy0QBq2I/K2uLkLsN4OjasAVW5wEWWGCBBRZYDLDAAgsssMBi/ACnZ1edeS78lQAAAABJRU5ErkJggg==" alt="contact ${resume.email}"/>--></td>
       	
  </#if>
     </tr>

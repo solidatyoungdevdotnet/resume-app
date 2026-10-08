@@ -1,5 +1,5 @@
 {
-	"email": "matt.young@youngdev.net",
+	"email": "matt.young@yodetech.com",
 	"name": "Matt Young",
 	"title": "Solution Architect",
 	"subTitle": "US Citizen, Public Trust Clearance",
@@ -75,8 +75,32 @@
 	"experience": [
 		{
 			"dates": {
-				"begin": "May 2015",
+				"begin": "May 2024",
 				"end": "Current"
+			},
+			"companyName": "Satsyil",
+			"title": "Devops Engineer",
+			"description": "Supported, implemented, and maintained software delivery pipelines.",
+			"projects": [
+				{
+					"name": "DAS",
+					"dates": {
+						"begin": "2024",
+						"end": "Current"
+					},
+					"technologies": [
+						"ECR/ECS",
+						"AWS",
+						"Terraform",
+						"Gradle",
+						"Spring Boot"
+					]
+				}
+			]
+		}, {
+			"dates": {
+				"begin": "May 2015",
+				"end": "May 2024"
 			},
 			"companyName": "United States Patent and Trade Office",
 			"title": "Solution Architect",
@@ -337,31 +361,6 @@
 					]
 				},
 				{
-					"name": "EDocs",
-					"dates": {
-						"begin": "2010",
-						"end": "2010"
-					},
-					"technologies": [
-						"Struts/Spring MVC",
-						"JPA",
-						"Spring Security"
-					]
-				},
-				{
-					"name": "Sanddollar",
-					"dates": {
-						"begin": "2010",
-						"end": "2012"
-					},
-					"technologies": [
-						"Spring MVC",
-						"JPA/Hibernate",
-						"Spring Security",
-						"Jasper Reports"
-					]
-				},
-				{
 					"name": "FSP4",
 					"dates": {
 						"begin": "2011",
@@ -402,7 +401,7 @@
 		{
 			"name": "Languages / Formats",
 			"technologies": [
-				"Java 4/5/6/7/8/11/17",
+				"Java 4/5/6/7/8/11/17/23",
 				"Groovy",
 				"Python \u0026 Jython",
 				"NodeJS/Typescript",
@@ -470,6 +469,8 @@
 				"AWS CodePipeline",
 				"AWS Lambda",
 				"AWS Quicksight",
+				"AWS Cloudformation",
+				"Terraform",
 				"Apache Web Server",
 				"Apache Tomcat",
 				"Spring TC Server",
