@@ -148,19 +148,6 @@
 						"XML",
 						"JSON transformations", "Cloudformation","DevOps Pipelines using Gitlab"
 					]
-				},
-				{
-					"name": "PStar",
-					"dates": {
-						"begin": "2019",
-						"end": "2020"
-					},
-					"technologies": [
-						"JEE",
-						"Spring Batch",
-						"AWS",
-						"ReST"
-					]
 				}
 			]
 		},
@@ -285,19 +272,6 @@
 						"Proprietary Data Access Layer",
 						"Dieselpoint Search Index",
 						"Spring"
-					]
-				},
-				{
-					"name": "Inboundcal",
-					"dates": {
-						"begin": "2012",
-						"end": "2013"
-					},
-					"technologies": [
-						"Grails",
-						"jQuery",
-						"Full Calendar JS",
-						"GORM"
 					]
 				}
 			]
