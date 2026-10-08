@@ -200,7 +200,7 @@ Resources:
                     --query "DistributionList.Items[?Origins.Items[?contains(DomainName, '${DEPLOY_BUCKET}')]].Id | [0]" \
                     --output text)
                   if [ -n "$DISTRIBUTION_ID" ] && [ "$DISTRIBUTION_ID" != "None" ]; then
-                    aws cloudfront create-invalidation --distribution-id "$DISTRIBUTION_ID" --paths "/$TARGET_KEY"
+                    aws cloudfront create-invalidation --distribution-id "$DISTRIBUTION_ID" --paths "/*"
                   else
                     echo "No CloudFront distribution found with an origin matching bucket $DEPLOY_BUCKET; skipping invalidation."
                   fi
