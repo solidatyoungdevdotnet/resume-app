@@ -75,8 +75,33 @@
 	"experience": [
 		{
 			"dates": {
-				"begin": "May 2024",
+				"begin": "Oct 2024",
 				"end": "Current"
+			},
+			"companyName": "United States Patent and Trade Office",
+			"title": "Senior Software Engineer",
+			"description": "Implemented microservice software per Software specificaitons",
+			"projects": [
+				{
+					"name": "CMS",
+					"dates": {
+						"begin": "2024",
+						"end": "Current"
+					},
+					"technologies": [
+						"ECR/ECS/Fargate",
+						"AWS",
+						"Terraform",
+						"Java",
+						"Spring Boot",
+						"jmeter"
+					]
+				}
+			]
+		},	{
+			"dates": {
+				"begin": "May 2024",
+				"end": "Oct 2024"
 			},
 			"companyName": "Satsyil",
 			"title": "Devops Engineer",
@@ -86,7 +111,7 @@
 					"name": "DAS",
 					"dates": {
 						"begin": "2024",
-						"end": "Current"
+						"end": "2024"
 					},
 					"technologies": [
 						"ECR/ECS",
@@ -434,6 +459,7 @@
 				"Apache Struts",
 				"Apache Tiles (both as a struts plugin and stand alone)",
 				"Apache Maven",
+				"Apache Jmeter",
 				"Sitemesh",
 				"Thymeleaf",
 				"Apache Axis",
@@ -464,6 +490,7 @@
 		{
 			"name": "Software",
 			"technologies": [
+				"AWS Athena",
 				"AWS (CLI and Console)",
 				"AWS CodeDeploy",
 				"AWS CodePipeline",
