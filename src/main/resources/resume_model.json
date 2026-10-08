@@ -187,18 +187,6 @@
 			"description": "Strategic enterprise goals to evaluate and provide reference implementations for new technologies and document how to integrate them into the organization’s existing technologies.",
 			"projects": [
 				{
-					"name": "Gluu IDM Implementation",
-					"dates": {
-						"begin": "2018",
-						"end": "2019"
-					},
-					"technologies": [
-						"Python",
-						"SAMl",
-						"OpenID Connect"
-					]
-				},
-				{
 					"name": "Archive OpenID implementation",
 					"dates": {
 						"begin": "2018",
@@ -293,9 +281,7 @@
 					},
 					"technologies": [
 						"Struts (later replaced with Spring MVC)",
-						"hibernate",
-						"Axis (SOAP 1.1) web services",
-						"Quartz"
+						"Axis (SOAP 1.1) web services"
 					]
 				},
 				{
