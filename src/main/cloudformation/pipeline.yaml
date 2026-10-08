@@ -1,0 +1,437 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: >
+  CodePipeline for resume-app: Maven build + unit tests, email the generated
+  PDF, manual deploy approval, then copy the PDF to an S3 bucket.
+
+Parameters:
+  GitHubConnectionArn:
+    Type: String
+    Description: >
+      ARN of an existing CodeStar Connections (GitHub) connection. Create it
+      once via the console or `aws codestar-connections create-connection`
+      and complete the handshake before deploying this stack.
+
+  RepositoryId:
+    Type: String
+    Default: solidatyoungdevdotnet/resume-app
+    Description: GitHub "owner/repo" for the source action.
+
+  BranchName:
+    Type: String
+    Default: main
+
+  SenderEmail:
+    Type: String
+    Description: SES-verified "From" address used to email the built PDF.
+
+  RecipientEmail:
+    Type: String
+    Description: Address the built PDF is emailed to after each build.
+
+  ApprovalNotificationEmail:
+    Type: String
+    Description: Address subscribed to the manual deploy-approval SNS topic.
+
+  DeployBucketName:
+    Type: String
+    Description: >
+      Name of an existing S3 bucket the PDF is copied to. The bucket must
+      already exist in this account/region; this stack does not create it.
+
+Resources:
+
+  ArtifactBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      VersioningConfiguration:
+        Status: Enabled
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+
+  ApprovalTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      TopicName: !Sub ${AWS::StackName}-deploy-approval
+
+  ApprovalTopicSubscription:
+    Type: AWS::SNS::Subscription
+    Properties:
+      TopicArn: !Ref ApprovalTopic
+      Protocol: email
+      Endpoint: !Ref ApprovalNotificationEmail
+
+  CodeBuildServiceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: codebuild.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: CodeBuildLogsAndArtifacts
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource:
+                  - !Sub arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/codebuild/${AWS::StackName}-build
+                  - !Sub arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/codebuild/${AWS::StackName}-build:*
+              - Effect: Allow
+                Action:
+                  - s3:GetObject
+                  - s3:GetObjectVersion
+                  - s3:PutObject
+                Resource: !Sub ${ArtifactBucket.Arn}/*
+              - Effect: Allow
+                Action:
+                  - s3:GetBucketVersioning
+                Resource: !GetAtt ArtifactBucket.Arn
+
+  BuildProject:
+    Type: AWS::CodeBuild::Project
+    Properties:
+      Name: !Sub ${AWS::StackName}-build
+      ServiceRole: !GetAtt CodeBuildServiceRole.Arn
+      Artifacts:
+        Type: CODEPIPELINE
+      Source:
+        Type: CODEPIPELINE
+        BuildSpec: |
+          version: 0.2
+          phases:
+            install:
+              runtime-versions:
+                java: corretto11
+            build:
+              commands:
+                # mvn verify runs the full lifecycle including the test phase (unit tests)
+                # and the package phase (maven-shade-plugin builds the runnable jar).
+                - mvn -B clean verify
+                - java -jar target/resume-app-0.0.1-SNAPSHOT-shaded.jar 
+          artifacts:
+            files:
+              - resume.pdf
+      Environment:
+        Type: LINUX_CONTAINER
+        ComputeType: BUILD_GENERAL1_SMALL
+        Image: aws/codebuild/standard:7.0
+
+  DeployCopyServiceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: codebuild.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: DeployCopyPolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource:
+                  - !Sub arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/codebuild/${AWS::StackName}-deploy-copy
+                  - !Sub arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/codebuild/${AWS::StackName}-deploy-copy:*
+              - Effect: Allow
+                Action:
+                  - s3:GetObject
+                  - s3:GetObjectVersion
+                Resource: !Sub ${ArtifactBucket.Arn}/*
+              - Effect: Allow
+                Action:
+                  - s3:GetObject
+                  - s3:PutObject
+                Resource: !Sub arn:aws:s3:::${DeployBucketName}/*
+
+  DeployCopyProject:
+    Type: AWS::CodeBuild::Project
+    Properties:
+      Name: !Sub ${AWS::StackName}-deploy-copy
+      ServiceRole: !GetAtt DeployCopyServiceRole.Arn
+      Artifacts:
+        Type: CODEPIPELINE
+      Source:
+        Type: CODEPIPELINE
+        BuildSpec: |
+          version: 0.2
+          env:
+            variables:
+              TARGET_KEY: latest-resume-architect.pdf
+          phases:
+            build:
+              commands:
+                - |
+                  if aws s3api head-object --bucket "$DEPLOY_BUCKET" --key "$TARGET_KEY" >/dev/null 2>&1; then
+                    TIMESTAMP=$(date -u +%Y%m%d%H%M)
+                    aws s3 cp "s3://$DEPLOY_BUCKET/$TARGET_KEY" "s3://$DEPLOY_BUCKET/latest-resume-architect-${TIMESTAMP}.pdf"
+                  fi
+                - aws s3 cp resume.pdf "s3://$DEPLOY_BUCKET/$TARGET_KEY"
+      Environment:
+        Type: LINUX_CONTAINER
+        ComputeType: BUILD_GENERAL1_SMALL
+        Image: aws/codebuild/standard:7.0
+        EnvironmentVariables:
+          - Name: DEPLOY_BUCKET
+            Value: !Ref DeployBucketName
+
+  EmailFunctionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: EmailFunctionPolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource: !Sub arn:aws:logs:${AWS::Region}:${AWS::AccountId}:*
+              - Effect: Allow
+                Action:
+                  - s3:GetObject
+                  - s3:GetObjectVersion
+                Resource: !Sub ${ArtifactBucket.Arn}/*
+              - Effect: Allow
+                Action:
+                  - ses:SendRawEmail
+                Resource: '*'
+              - Effect: Allow
+                Action:
+                  - codepipeline:PutJobSuccessResult
+                  - codepipeline:PutJobFailureResult
+                Resource: '*'
+
+  EmailFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: !Sub ${AWS::StackName}-email-pdf
+      Runtime: python3.12
+      Handler: index.handler
+      Role: !GetAtt EmailFunctionRole.Arn
+      Timeout: 30
+      Code:
+        ZipFile: |
+          import boto3, json, io, zipfile
+          from email.mime.multipart import MIMEMultipart
+          from email.mime.base import MIMEBase
+          from email.mime.text import MIMEText
+          from email import encoders
+
+          codepipeline = boto3.client('codepipeline')
+          s3 = boto3.client('s3')
+          ses = boto3.client('ses')
+
+          def handler(event, context):
+              job_id = event['CodePipeline.job']['id']
+              try:
+                  job_data = event['CodePipeline.job']['data']
+                  location = job_data['inputArtifacts'][0]['location']['s3Location']
+                  bucket = location['bucketName']
+                  key = location['objectKey']
+
+                  user_params = json.loads(
+                      job_data['actionConfiguration']['configuration']['UserParameters']
+                  )
+
+                  obj = s3.get_object(Bucket=bucket, Key=key)
+                  zip_bytes = obj['Body'].read()
+
+                  pdf_bytes = None
+                  with zipfile.ZipFile(io.BytesIO(zip_bytes)) as z:
+                      for name in z.namelist():
+                          if name.endswith('resume.pdf'):
+                              pdf_bytes = z.read(name)
+                              break
+
+                  if pdf_bytes is None:
+                      raise Exception('resume.pdf not found in build artifact')
+
+                  msg = MIMEMultipart()
+                  msg['Subject'] = user_params.get('subject', 'Generated resume PDF')
+                  msg['From'] = user_params['sender']
+                  msg['To'] = user_params['recipient']
+                  msg.attach(MIMEText('Please find the generated resume PDF attached.'))
+
+                  attachment = MIMEBase('application', 'pdf')
+                  attachment.set_payload(pdf_bytes)
+                  encoders.encode_base64(attachment)
+                  attachment.add_header(
+                      'Content-Disposition', 'attachment', filename='resume.pdf'
+                  )
+                  msg.attach(attachment)
+
+                  ses.send_raw_email(
+                      Source=user_params['sender'],
+                      Destinations=[user_params['recipient']],
+                      RawMessage={'Data': msg.as_string()},
+                  )
+
+                  codepipeline.put_job_success_result(jobId=job_id)
+              except Exception as e:
+                  codepipeline.put_job_failure_result(
+                      jobId=job_id,
+                      failureDetails={'type': 'JobFailed', 'message': str(e)},
+                  )
+
+  PipelineServiceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: codepipeline.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: PipelineServicePolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - s3:GetObject
+                  - s3:GetObjectVersion
+                  - s3:PutObject
+                Resource: !Sub ${ArtifactBucket.Arn}/*
+              - Effect: Allow
+                Action:
+                  - s3:GetBucketVersioning
+                Resource: !GetAtt ArtifactBucket.Arn
+              - Effect: Allow
+                Action:
+                  - codestar-connections:UseConnection
+                Resource: !Ref GitHubConnectionArn
+              - Effect: Allow
+                Action:
+                  - codebuild:BatchGetBuilds
+                  - codebuild:StartBuild
+                Resource:
+                  - !GetAtt BuildProject.Arn
+                  - !GetAtt DeployCopyProject.Arn
+              - Effect: Allow
+                Action:
+                  - lambda:InvokeFunction
+                Resource: !GetAtt EmailFunction.Arn
+              - Effect: Allow
+                Action:
+                  - sns:Publish
+                Resource: !Ref ApprovalTopic
+
+  Pipeline:
+    Type: AWS::CodePipeline::Pipeline
+    Properties:
+      Name: !Sub ${AWS::StackName}
+      RoleArn: !GetAtt PipelineServiceRole.Arn
+      ArtifactStore:
+        Type: S3
+        Location: !Ref ArtifactBucket
+      Stages:
+        - Name: Source
+          Actions:
+            - Name: GitHubSource
+              ActionTypeId:
+                Category: Source
+                Owner: AWS
+                Provider: CodeStarSourceConnection
+                Version: '1'
+              Configuration:
+                ConnectionArn: !Ref GitHubConnectionArn
+                FullRepositoryId: !Ref RepositoryId
+                BranchName: !Ref BranchName
+              OutputArtifacts:
+                - Name: SourceOutput
+
+        - Name: Build
+          Actions:
+            - Name: MavenBuildAndTest
+              ActionTypeId:
+                Category: Build
+                Owner: AWS
+                Provider: CodeBuild
+                Version: '1'
+              Configuration:
+                ProjectName: !Ref BuildProject
+              InputArtifacts:
+                - Name: SourceOutput
+              OutputArtifacts:
+                - Name: BuildOutput
+
+        - Name: EmailPdf
+          Actions:
+            - Name: EmailGeneratedPdf
+              ActionTypeId:
+                Category: Invoke
+                Owner: AWS
+                Provider: Lambda
+                Version: '1'
+              Configuration:
+                FunctionName: !Ref EmailFunction
+                UserParameters: !Sub '{"sender":"${SenderEmail}","recipient":"${RecipientEmail}","subject":"Resume PDF build output"}'
+              InputArtifacts:
+                - Name: BuildOutput
+
+        - Name: DeployApproval
+          Actions:
+            - Name: ApproveDeploy
+              ActionTypeId:
+                Category: Approval
+                Owner: AWS
+                Provider: Manual
+                Version: '1'
+              Configuration:
+                NotificationArn: !Ref ApprovalTopic
+                CustomData: Approve copying the generated resume PDF to the deploy S3 bucket.
+
+        - Name: Deploy
+          Actions:
+            - Name: BackupAndCopyPdfToS3
+              ActionTypeId:
+                Category: Build
+                Owner: AWS
+                Provider: CodeBuild
+                Version: '1'
+              Configuration:
+                ProjectName: !Ref DeployCopyProject
+              InputArtifacts:
+                - Name: BuildOutput
+
+Outputs:
+  PipelineName:
+    Value: !Ref Pipeline
+  ArtifactBucketName:
+    Value: !Ref ArtifactBucket
+  DeployBucketName:
+    Value: !Ref DeployBucketName
+  ApprovalTopicArn:
+    Value: !Ref ApprovalTopic

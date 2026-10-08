@@ -1,0 +1,25 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: >
+  CodeStar Connections (GitHub) connection for resume-app. The connection is
+  created in PENDING status - you must complete the OAuth handshake in the
+  AWS Console (Developer Tools > Settings > Connections) before it can be
+  used as a CodePipeline source.
+
+Parameters:
+  ConnectionName:
+    Type: String
+    Default: resume-app-github-connection
+
+Resources:
+  GitHubConnection:
+    Type: AWS::CodeStarConnections::Connection
+    Properties:
+      ConnectionName: !Ref ConnectionName
+      ProviderType: GitHub
+
+Outputs:
+  ConnectionArn:
+    Value: !GetAtt GitHubConnection.ConnectionArn
+  ConnectionStatus:
+    Description: Will be PENDING until you authorize it in the console.
+    Value: !GetAtt GitHubConnection.ConnectionStatus
